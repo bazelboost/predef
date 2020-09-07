@@ -4,3 +4,4 @@ project-config.jam
 *.pyc
 .vscode/settings.json
 .vscode/ipch
+/bazel-*
