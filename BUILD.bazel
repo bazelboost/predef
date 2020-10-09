@@ -1,14 +1,33 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
+_public_hdrs = [
+    "include/boost/*.h",
+    "include/boost/predef/*.h",
+    "include/boost/predef/architecture/*.h",
+    "include/boost/predef/architecture/x86/*.h",
+    "include/boost/predef/compiler/*.h",
+    "include/boost/predef/hardware/*.h",
+    "include/boost/predef/hardware/simd/*.h",
+    "include/boost/predef/hardware/simd/arm*.h",
+    "include/boost/predef/hardware/simd/ppc*.h",
+    "include/boost/predef/hardware/simd/x86*.h",
+    "include/boost/predef/hardware/simd/x86_amd*.h",
+    "include/boost/predef/language/*.h",
+    "include/boost/predef/library/*.h",
+    "include/boost/predef/os/*.h",
+    "include/boost/predef/other/*.h",
+    "include/boost/predef/platform/*.h",
+]
+
 cc_library(
     name = "predef_internal",
-    hdrs = glob(["include/boost/**/*.hpp"], exclude = ["include/boost/*.hpp"]),
+    hdrs = glob(["include/boost/**/*.h"], exclude = _public_hdrs),
 )
 
 cc_library(
     name = "predef",
     visibility = ["//visibility:public"],
     includes = ["include"],
-    hdrs = glob(["include/boost/*.hpp"]),
+    hdrs = glob(_public_hdrs),
     deps = [":predef_internal"],
 )
